@@ -62,6 +62,22 @@ def get_material_info():
         logger.error(f"Unexpected error during material info retrieval: {e}")
         return None
 
+def get_question():
+   """This function gets in the custom user prompt"""
+   try:
+       question = questionary.text("Enter Your Custom Prompt: ").ask()
+       if not question:
+           logger.info("Custom prompt aborted")
+           return None
+       return question
+   except KeyboardInterrupt:
+       logger.info("User interrupted the process.")
+       return None
+
+   except Exception as e:
+       logger.error(f"Unexpected error in custom prompt{e}")
+       return None
+
 
 def run_question_prompts():
     """Main function to handle user prompts and build material path."""
@@ -86,8 +102,12 @@ def run_question_prompts():
             logger.error(f"Material not found: {material_path}")
             return None
 
-        logger.info(f"Material Path: {material_path}")
-        return material_path
+        question = get_question()
+        if not question:
+            logger.info("Question aborted")
+            return None
+        
+        return (role, material_path, question)
 
     except KeyboardInterrupt:
         logger.info("User interrupted the process.")
