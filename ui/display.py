@@ -38,7 +38,7 @@ def get_material_info():
 
         subject = questionary.select(
             "Select The Subject:",
-            choices=["Physics", "PSPP", "Maths"]
+            choices=["C", "PSPP", "Maths"]
         ).ask()
         if not subject:
             logger.warning("User cancelled subject selection.")
@@ -46,7 +46,7 @@ def get_material_info():
 
         material = questionary.select(
             "Select The Material:",
-            choices=["python_notes.pdf", "Notes.pdf"]
+            choices=["python_notes.pdf", "CP.pdf"]
         ).ask()
         if not material:
             logger.warning("User cancelled material selection.")
